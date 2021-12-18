@@ -1,13 +1,23 @@
-from linebot.models.sources import SourceUser
-from linebot.models.template import ButtonsTemplate
+from linebot.models.events import PostbackEvent
+from utils import *
+from linebot.models import (
+    MessageEvent, TextMessage
+)
+from .misc import print_menu
+from ui.status_eval import user_perf_pic
+import logging
+import random
 from utils import (
     line_bot_api,
-    line_webhook
+    line_webhook,
+    create_tmpfile_name,
+    send_msg,
+    send_pic
 )
-from linebot.models import (
-    MessageEvent, TextMessage,TemplateSendMessage, PostbackAction
+from utils.imgur.upload import (
+    upload
 )
-import logging
+import os
 
 @line_webhook.add(MessageEvent, message=TextMessage)
 def user_text_request(event:MessageEvent):
@@ -20,34 +30,39 @@ def user_text_request(event:MessageEvent):
     )
     print_menu(event.source.user_id)
 
-def print_menu(line_id:str):
-    line_bot_api.push_message(
-        line_id,
-        TemplateSendMessage(
-            alt_text="歡迎來到LoL雷包分析系統",
-            template=ButtonsTemplate(
-                type="buttons",
-                thumbnail_image_url="https://i.imgur.com/zFeydUT.jpg",
-                title="歡迎來到LoL雷包分析系統",
-                text="請選擇分析項目",
-                actions=[
-                    PostbackAction(
-                        label="一般對戰",
-                        data="blindpick"
-                    ),
-                    PostbackAction(
-                        label="積分對戰",
-                        data="rank"
-                    ),
-                    PostbackAction(
-                        label="隨機單中",
-                        data="aram"
-                    ),
-                    PostbackAction(
-                        label="切換召喚師",
-                        data="logout"
-                    )
-                ]
-            )
+@line_webhook.add(PostbackEvent)
+def user_postback_request(event:PostbackEvent):
+    logging.info(f"receive postback message:{event}")
+    mode = event.postback.data
+    if mode in ['blindpick', 'rank', 'aram']:
+        # get data
+        rate = 0.87
+        most_used = ['a', 'b', 'c']
+        top_hero = ['c', 'd', 'e']
+        avg_time = 4.87639
+
+        graph_data = {
+            "KDA": random.random(),
+            "CSPM": random.random(),
+            "DPM": random.random(),
+            "GPM": random.random()
+        }
+
+        # craft response
+        logging.warning(f"user performance: {graph_data}")
+        dst_fname = create_tmpfile_name(".png")
+        user_perf_pic(graph_data, dst_fname)
+        rlink = upload(dst_fname)
+        
+        user_id = event.source.user_id
+        send_msg(user_id,
+        f"一般對戰勝率：{rate}\n"+ \
+        f"前三使用最高的英雄為：{','.join(most_used)}\n"+ \
+        f"前三勝率最高的英雄為：{','.join(top_hero)}\n"+ \
+        "一般對戰平均遊戲時間：{:.2f}".format(avg_time)
         )
-    )
+        send_pic(user_id, rlink)
+        os.remove(dst_fname)
+        print_menu(user_id)
+    elif mode == 'logout':
+        pass
