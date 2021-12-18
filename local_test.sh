@@ -1,1 +1,1 @@
-gunicorn app:app
+export $(grep -v '^#' .env | xargs) && gunicorn app:app
