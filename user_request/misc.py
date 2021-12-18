@@ -19,11 +19,11 @@ def print_menu(line_id:str):
                 actions=[
                     PostbackAction(
                         label="一般對戰",
-                        data="blindpick"
+                        data="blind_pick"
                     ),
                     PostbackAction(
                         label="積分對戰",
-                        data="rank"
+                        data="ranked_solo/duo"
                     ),
                     PostbackAction(
                         label="隨機單中",

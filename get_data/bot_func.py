@@ -29,7 +29,7 @@ class player_imformation:
         }
 
     def set_data(self):
-        sheet = load_workbook("data.xlsx")["Sheet"]
+        sheet = load_workbook("get_data/data.xlsx")["Sheet"]
         for row in sheet.values:
             if row[0]!=self.id:
                 continue

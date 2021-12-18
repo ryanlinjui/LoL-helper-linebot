@@ -1,4 +1,4 @@
-from bot_func import player_imformation
+from .bot_func import player_imformation
 
 user_state = {}
 player = player_imformation()
@@ -17,12 +17,3 @@ def is_login(line_user_id:str):
     if line_user_id in user_state:
         return True
     return False
-    
-
-print(login("3","特務小熊熊"))
-print(behavior("3","blind_pick"))
-print(is_login("3"))
-
-    
-
-
