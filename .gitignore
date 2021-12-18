@@ -2,3 +2,7 @@
 .DS_Store
 # python
 __pycache__
+# local testing enviroment variables
+.env
+# logfile
+*.log
