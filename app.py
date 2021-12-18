@@ -14,8 +14,11 @@ import logging
 import user_request
 
 app = Flask(__name__)
-logging.basicConfig(level=logging.DEBUG)
-
+logging.basicConfig(
+    level=logging.INFO,
+    filename='runtime.log',
+    filemode='w'
+)
 @app.route("/", methods=['GET'])
 def hello_world():
     return "<h1>hellow world</h1>"

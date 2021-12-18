@@ -4,3 +4,5 @@
 __pycache__
 # local testing enviroment variables
 .env
+# logfile
+*.log
