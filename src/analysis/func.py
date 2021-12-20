@@ -18,10 +18,10 @@ def is_login(line_user_id:str):
         return True
     return False
     
-
+'''
 print(login("3","特務小熊熊"))
 print(behavior("3","blind_pick"))
-print(is_login("3"))
+print(is_login("3"))'''
 
     
 
