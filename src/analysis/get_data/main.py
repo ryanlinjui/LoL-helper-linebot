@@ -2,7 +2,7 @@ import logging
 from pprint import pprint
 
 from form import (
-    export_to_xlsx,
+    export_to_csv,
     read_csv_reply
 )
 from craweler import (
@@ -21,17 +21,17 @@ handler.setFormatter(logging.Formatter('%(asctime)s [ %(name)s ] %(levelname)s :
 root_logger.addHandler(handler)
 
 def main():
-    player_data = read_csv_reply("LOL數據調查.csv")
+    database_dir = "../database/"
+    player_data = read_csv_reply(database_dir+"original_source.csv")
     match_data = []
-    for email, playername in player_data:
+    for playername in player_data:
         try:
             print(f"conducting queries on {playername}")
             player_id =  get_player_id(playername)
             match_data += get_player_matches(player_id)
         except Exception as e:
             logging.error(f"error on processing {playername}")
-            
-    export_to_xlsx(match_data, "data.xlsx")
+    export_to_csv(match_data, database_dir+"game.csv")
     
 if __name__ == "__main__" :
     main()
