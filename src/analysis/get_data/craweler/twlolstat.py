@@ -19,6 +19,7 @@ def get_player_matches(player_id:str, page_count:int=1)->list:
     data_list = []
     for i in range(1, page_count+1):
         with requests.get(f"{BASE_URL}/moreGames/{player_id}/game{i}") as resp:
+            print(f"{BASE_URL}/moreGames/{player_id}/game{i}")
             if resp.status_code != 200:
                 raise Exception(f"query return code with {resp.status_code}")
             res = BeautifulSoup(resp.json()['posts_html'], "html.parser")
