@@ -2,7 +2,11 @@ LoL-helper-linebot/
 |-- src/
 |   |-- analysis/
 |   |   |-- database/
-|   |   |   |-- source.csv
+|   |   |   |-- analysis_data.csv
+|   |   |   |-- game.csv
+|   |   |   |-- mode.csv
+|   |   |   |-- original_source.csv
+|   |   |   |-- status.csv
 |   |   |
 |   |   |-- get_data/
 |   |   |   |-- craweler/
@@ -10,12 +14,12 @@ LoL-helper-linebot/
 |   |   |   |   |-- lolmoa.py
 |   |   |   |   |-- twlolstat.py
 |   |   |   |
+|   |   |   |-- __init__.py
 |   |   |   |-- form.py
 |   |   |   |-- main.py
 |   |   |
 |   |   |-- __init__.py
-|   |   |-- func.py
-|   |   |-- bot_func.py
+|   |   |-- access.py
 |   |
 |   |-- ui/
 |   |   |-- __init__.py
