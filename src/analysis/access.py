@@ -1,10 +1,11 @@
 import pandas as pd
-from get_data import(
+import os
+from .get_data import(
     get_player_id,
     get_player_matches
 )
 
-database_dir = "database/"
+database_dir = "./analysis/database/"
 analysis_data_db_path = database_dir + "analysis_data.csv"
 game_db_path = database_dir + "game.csv"
 mode_db_path = database_dir + "mode.csv"
@@ -16,6 +17,12 @@ status_db = None
 
 def update_db():
     global analysis_data_db,game_db,mode_db,status_db
+    if not(os.path.exists(analysis_data_db_path)):
+        pd.DataFrame(columns=["player","mode","rate","most_used","rank_champion","game_time","kda","cspm","dpm","gpm"]).to_csv(analysis_data_db_path,index=False)
+    if not(os.path.exists(game_db_path)):
+        pd.DataFrame(columns=["player_id","battle_id","match_res","gamemode","gametip","start_time","character","K/D/A","money","CS","damage","view"]).to_csv(game_db_path,index=False)
+    if not(os.path.exists(status_db_path)):
+        pd.DataFrame(columns=["line_id","player_id"]).to_csv(status_db_path,index=False)
     analysis_data_db = pd.read_csv(analysis_data_db_path)
     game_db = pd.read_csv(game_db_path)
     mode_db = pd.read_csv(mode_db_path,dtype=str)
@@ -30,28 +37,29 @@ def login(line_user_id:str,lol_player_id:str)->bool:
     update_db()
     if not(line_user_id in status_db["line_id"].values): 
         #新增line id
-        print("Append new line id: "+line_user_id)
         status_db = status_db.append({"line_id": line_user_id,"player_id":None},ignore_index=True)
         status_db.to_csv(status_db_path,index=False)
+        print("["+line_user_id+"]: "+"Append new line id: "+line_user_id)
     
     if not(lol_player_id in game_db["player_id"].values):
         try:
             #新增lol玩家對戰資料至game_db並作分析後新增至analysis_data_db
-            print("Append game data of "+lol_player_id)
             player_id  = get_player_id(lol_player_id)
             match_data = get_player_matches(player_id)
             game_db = game_db.append(match_data[0],ignore_index=True).to_csv(game_db_path,index=False)
+            print("["+line_user_id+"]: "+"Append game data of "+lol_player_id)
         except IndexError:
             #不存在此lol玩家
-            print(lol_player_id+" is not exist")
+            print("["+line_user_id+"]: "+lol_player_id+" is not exist")
             return False
     
     if not(lol_player_id in analysis_data_db["player"].values):
-        print("Append analysing data of "+lol_player_id)
         analysis(lol_player_id)
+        print("["+line_user_id+"]: "+"Append analysing data of "+lol_player_id)
     
     status_db.loc[status_db.line_id == line_user_id,"player_id"] = lol_player_id
     status_db.to_csv(status_db_path,index=False)
+    print("["+line_user_id+"]: "+"Login with "+lol_player_id)
     return True
 
 def is_login(line_user_id:str)->bool:
@@ -73,6 +81,7 @@ def logout(line_user_id:str)->bool:
         return False
     status_db.loc[status_db.line_id == line_user_id,"player_id"] = None
     status_db.to_csv(status_db_path,index=False)
+    print("["+line_user_id+"]: "+"Logout")
     return True
 
 def get_player_data(line_user_id:str,game_mode:str)->dict:
@@ -81,6 +90,7 @@ def get_player_data(line_user_id:str,game_mode:str)->dict:
     '''
     global analysis_data_db,game_db,mode_db,status_db
     update_db()
+    game_mode = list(mode_db[(mode_db["code"]==game_mode)]["zh-tw"])[0]
     try:
         player_id = list(status_db[(status_db["line_id"]==line_user_id)]["player_id"])[0]
         data = analysis_data_db[(analysis_data_db["player"]==player_id)&(analysis_data_db["mode"]==game_mode)].iloc[-1].to_dict()
@@ -98,6 +108,7 @@ def get_player_data(line_user_id:str,game_mode:str)->dict:
         data["gpm"]  = data["gpm"]/gpm_population
     except IndexError:
         data = {}
+    print("["+line_user_id+"]: "+"Look for "+game_mode+" of "+player_id)
     return data
 
 def analysis(player_name:str):
@@ -115,7 +126,10 @@ def analysis(player_name:str):
             continue
         print("Analysis mode "+mode +" of "+ player_name)
         total = data.shape[0]
-        win = data["match_res"].value_counts()['勝']
+        try:
+            win = data["match_res"].value_counts()['勝']
+        except KeyError:
+            win = 0
         for i in range(5):
             try:
                 playing_time = pd.to_numeric(data["gametip"].str[0:5-i]).sum() + (pd.to_numeric(data["gametip"].str[-3:-1]).sum())/60
@@ -168,7 +182,6 @@ def analysis(player_name:str):
         },ignore_index=True)
     analysis_data_db.to_csv(analysis_data_db_path,index=False)
 
-update_db()
 
 '''
 TESTING CODE

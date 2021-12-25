@@ -18,43 +18,53 @@ from utils.imgur.upload import (
     upload
 )
 import os
+from analysis import (
+    login,
+    is_login,
+    logout,
+    behavior
+)
 
 @line_webhook.add(MessageEvent, message=TextMessage)
 def user_text_request(event:MessageEvent):
+    user_id = event.source.user_id
     msg = str(event.message.text)
     logging.info(f"receive message:{msg}")
     # TODO:login check
+    if not(login(user_id,msg)):
+        raise Exception("Login Error")
     line_bot_api.reply_message(
         event.reply_token,
         messages = TextMessage(text=msg)
     )
-    print_menu(event.source.user_id)
+    print_menu(user_id)
 
 @line_webhook.add(PostbackEvent)
 def user_postback_request(event:PostbackEvent):
+    user_id = event.source.user_id
     logging.info(f"receive postback message:{event}")
     mode = event.postback.data
     if mode in ['blindpick', 'rank', 'aram']:
         # get data
-        rate = 0.87
-        most_used = ['a', 'b', 'c']
-        top_hero = ['c', 'd', 'e']
-        avg_time = 4.87639
+        data = behavior(user_id,mode)
+        rate = data["rate"]
+        most_used = data["most_used"]
+        top_hero = data["rank_champion"]
+        avg_time = data["game_time"]
 
         graph_data = {
-            "KDA": random.random(),
-            "CSPM": random.random(),
-            "DPM": random.random(),
-            "GPM": random.random()
+            "KDA": data["kda"],
+            "CSPM": data["cspm"],
+            "DPM": data["dpm"],
+            "GPM": data["gpm"],
         }
-
         # craft response
         logging.warning(f"user performance: {graph_data}")
         dst_fname = create_tmpfile_name(".png")
         user_perf_pic(graph_data, dst_fname)
         rlink = upload(dst_fname)
         
-        user_id = event.source.user_id
+        
         send_msg(user_id,
         f"一般對戰勝率：{rate}\n"+ \
         f"前三使用最高的英雄為：{','.join(most_used)}\n"+ \
@@ -65,4 +75,4 @@ def user_postback_request(event:PostbackEvent):
         os.remove(dst_fname)
         print_menu(user_id)
     elif mode == 'logout':
-        pass
+        logout(user_id)
