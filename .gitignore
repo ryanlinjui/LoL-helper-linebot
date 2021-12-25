@@ -11,7 +11,7 @@ __pycache__
 *.log
 
 # database
-database/analysis_data.csv
-database/game.csv
-database/status.csv
-database/original_source.csv
+analysis_data.csv
+game.csv
+status.csv
+original_source.csv
