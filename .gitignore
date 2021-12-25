@@ -9,3 +9,9 @@ __pycache__
 
 # logfile
 *.log
+
+# database
+database/analysis_data.csv
+database/game.csv
+database/status.csv
+database/original_source.csv
