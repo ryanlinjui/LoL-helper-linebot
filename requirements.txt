@@ -1,4 +1,4 @@
-python= 3.8.11
+python==3.8.11
 Flask==1.1.2
 gunicorn==20.0.4
 line-bot-sdk==1.16.0
