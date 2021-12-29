@@ -87,7 +87,7 @@ def login(line_user_id:str,lol_player_id:str)->bool:
     update_db()
     if not(line_user_id in status_db["line_id"].values): 
         #新增line id
-        status_db = status_db.append({"line_id": line_user_id,"player_id":None},ignore_index=True)
+        status_db = status_db.append({"line_id": line_user_id,"player_id":"%"},ignore_index=True)
         status_db.to_csv(status_db_path,index=False)
         logging.info(f"[{line_user_id}]: Append new line id: {line_user_id}")
     
@@ -202,15 +202,3 @@ def analysis(player_name:str):
         "gpm":money/playing_time
         },ignore_index=True)
     analysis_data_db.to_csv(analysis_data_db_path,index=False)
-
-
-'''
-TESTING CODE
-'''
-# line_of_id = "22"
-# playername = "特務小熊熊"
-# print(is_login(line_of_id))
-# print(login(line_of_id,playername))
-# print(get_player_data(line_of_id,"一般對戰"))
-# print(is_login(line_of_id))
-# print(logout(line_of_id))
