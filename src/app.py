@@ -10,14 +10,15 @@ import logging
 from utils import (
     line_webhook,
 )
-import logging
+
 import user_request
 
 app = Flask(__name__)
 logging.basicConfig(
-    level=logging.INFO,
-    filename='runtime.log',
-    filemode='w'
+    level = logging.INFO,
+    filename = 'runtime.log',
+    filemode = 'w',
+    format = '%(asctime)s %(levelname)s: %(message)s'
 )
 @app.route("/", methods=['GET'])
 def hello_world():
