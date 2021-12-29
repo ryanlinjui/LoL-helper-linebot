@@ -1,4 +1,6 @@
-python==3.8.11
+# Python version = 3.8.11
+
+# pip module
 Flask==1.1.2
 gunicorn==20.0.4
 line-bot-sdk==1.16.0
