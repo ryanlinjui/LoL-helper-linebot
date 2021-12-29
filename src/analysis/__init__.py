@@ -3,6 +3,9 @@ from .access import(
     is_login,
     logout,
     get_player_data,
+    get_user_status,
+    get_mode_zh_tw,
+    get_player_total_num,
     update_db
 )
 
