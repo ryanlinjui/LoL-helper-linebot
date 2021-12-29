@@ -1,8 +1,17 @@
 # mac
 .DS_Store
+
 # python
 __pycache__
+
 # local testing enviroment variables
 .env
+
 # logfile
 *.log
+
+# database
+analysis_data.csv
+game.csv
+status.csv
+original_source.csv
