@@ -74,7 +74,9 @@ def get_player_data(line_user_id:str,game_mode:str)->dict:
         data["dpm"]  = data["dpm"]/dpm_population
         data["gpm"]  = data["gpm"]/gpm_population
     except:
+        print(f"[{line_user_id}]: There is no any match data of {game_mode} of {player_id} ")
         logging.info(f"[{line_user_id}]: There is no any match data of {game_mode} of {player_id} ")
+        
         data = {}
     return data
 
@@ -89,26 +91,35 @@ def login(line_user_id:str,lol_player_id:str)->bool:
         #新增line id
         status_db = status_db.append({"line_id": line_user_id,"player_id":"%"},ignore_index=True)
         status_db.to_csv(status_db_path,index=False)
+        print(f"[{line_user_id}]: Append new line id: {line_user_id}")
         logging.info(f"[{line_user_id}]: Append new line id: {line_user_id}")
+        
     
     if not(lol_player_id in game_db["player_id"].values):
         try:
             #新增lol玩家對戰資料至game_db並作分析後新增至analysis_data_db
+            print(f"[{line_user_id}]: Append game data of {lol_player_id}")
             logging.info(f"[{line_user_id}]: Append game data of {lol_player_id}")
             player_id  = get_player_id(lol_player_id)
             match_data = get_player_matches(player_id)
             if len(match_data)==0:
+                print(f"[{line_user_id}]: There is no any match data of {lol_player_id}")
                 logging.info(f"[{line_user_id}]: There is no any match data of {lol_player_id}")
+                
                 return False
             game_db = game_db.append(match_data,ignore_index=True).to_csv(game_db_path,index=False)
         except IndexError:
             #不存在此lol玩家
+            print(f"[{line_user_id}]: {lol_player_id} is not exist")
             logging.info(f"[{line_user_id}]: {lol_player_id} is not exist")
+            
             return False
     
     if not(lol_player_id in analysis_data_db["player"].values):
         analysis(lol_player_id)
+        print(f"[{line_user_id}]: Append analysing data of {lol_player_id}")
         logging.info(f"[{line_user_id}]: Append analysing data of {lol_player_id}")
+        
     
     status_db.loc[status_db.line_id == line_user_id,"player_id"] = lol_player_id
     status_db.to_csv(status_db_path,index=False)
@@ -145,7 +156,9 @@ def analysis(player_name:str):
             continue
         if data.empty:
             continue
+        print(f"Analysis mode {mode} of {player_name}")
         logging.info(f"Analysis mode {mode} of {player_name}")
+        
         total = data.shape[0]
         try:
             win = data["match_res"].value_counts()['勝']
