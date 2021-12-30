@@ -35,7 +35,7 @@ def update_db():
     print(game_db)
     print(mode_db)
     print(status_db)
-    print(champipon_db)
+    print(champion_db)
 
 def get_player_total_num()->int:
     global analysis_data_db,game_db,mode_db,status_db,champion_db
