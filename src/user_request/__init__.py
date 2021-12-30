@@ -32,9 +32,7 @@ from analysis import (
 def user_text_request(event:MessageEvent):
     user_id = event.source.user_id
     msg = str(event.message.text)
-    print(f"receive message:{msg}")
     logging.info(f"receive message:{msg}")
-    
     # TODO:login check
     
     if is_login(user_id):
@@ -45,9 +43,7 @@ def user_text_request(event:MessageEvent):
         print_menu(user_id)
         return
     if login(user_id,msg):
-        print(f"[{user_id}]: Login with {msg}")
         logging.info(f"[{user_id}]: Login with {msg}")
-        
         line_bot_api.reply_message(
             event.reply_token,
             messages = TextMessage(text="目前正在查看的玩家:\n"+get_user_status(user_id)
@@ -65,7 +61,6 @@ def user_text_request(event:MessageEvent):
 @line_webhook.add(PostbackEvent)
 def user_postback_request(event:PostbackEvent):
     user_id = event.source.user_id
-    print(f"receive postback message:{event}")
     logging.info(f"receive postback message:{event}")
     if not(is_login(user_id)):
         send_msg(user_id,"歡迎來到LoL雷包分析系統，請輸入玩家名分析\n(你不要想搞事ㄟ，請好好善待這個系統)")
@@ -75,7 +70,6 @@ def user_postback_request(event:PostbackEvent):
     if mode in ["blindpick","rank","flex","aram"]:
         send_msg(user_id,f"正在分析\n{get_user_status(user_id)}的\n{get_mode_zh_tw(mode)}\n請稍候......")
         # get data
-        print(f"[{user_id}]: Look for {mode} of {get_user_status(user_id)}")
         logging.info(f"[{user_id}]: Look for {mode} of {get_user_status(user_id)}")
         data = behavior(user_id,mode)
         if len(data)==0:
@@ -121,5 +115,4 @@ def user_postback_request(event:PostbackEvent):
     elif mode == 'logout':
         send_msg(user_id,"切換使用者\n歡迎來到LoL雷包分析系統，請輸入玩家名分析")
         logout(user_id)
-        print(f"[{user_id}]: Logout")
         logging.info(f"[{user_id}]: Logout")

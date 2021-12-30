@@ -15,10 +15,7 @@ def get_player_matches(player_id:Tuple[str, str], page_count:int=1)->list:
     # twlol_pdata = twlol_player_match(player_id[0], page_count=page_count)
     # logging.info(f"successfully grab down {len(twlol_pdata)} from twlol")
     moa_pdata = moa_player_match(player_id[0], page_count=page_count*2)
-    
-    print(f"successfully grab down {len(moa_pdata)} from moa")
     logging.info(f"successfully grab down {len(moa_pdata)} from moa")
-    
     for i in range(len(moa_pdata)):
         # twlol_pdata[i]["match_res"] = moa_pdata[i]["match_res"]
         # twlol_pdata[i]["gamemode"] = moa_pdata[i]["gamemode"]
