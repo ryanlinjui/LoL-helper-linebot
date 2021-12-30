@@ -31,11 +31,6 @@ def update_db():
     mode_db = pd.read_csv(mode_db_path,dtype=str)
     status_db = pd.read_csv(status_db_path,dtype=str)
     champion_db = pd.read_csv(champion_db_path,dtype=str)
-    print(analysis_data_db)
-    print(game_db)
-    print(mode_db)
-    print(status_db)
-    print(champion_db)
 
 def get_player_total_num()->int:
     global analysis_data_db,game_db,mode_db,status_db,champion_db
