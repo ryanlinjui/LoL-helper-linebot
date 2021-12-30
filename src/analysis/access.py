@@ -31,6 +31,11 @@ def update_db():
     mode_db = pd.read_csv(mode_db_path,dtype=str)
     status_db = pd.read_csv(status_db_path,dtype=str)
     champion_db = pd.read_csv(champion_db_path,dtype=str)
+    print(analysis_data_db)
+    print(game_db)
+    print(mode_db)
+    print(status_db)
+    print(champipon_db)
 
 def get_player_total_num()->int:
     global analysis_data_db,game_db,mode_db,status_db,champion_db
@@ -114,7 +119,7 @@ def login(line_user_id:str,lol_player_id:str)->bool:
             logging.info(f"[{line_user_id}]: {lol_player_id} is not exist")
             
             return False
-    
+    print("here")
     if not(lol_player_id in analysis_data_db["player"].values):
         analysis(lol_player_id)
         print(f"[{line_user_id}]: Append analysing data of {lol_player_id}")
