@@ -9,7 +9,9 @@ def get_player_id(player_name:str)->int:
     
     Parameter player_name: the name of player
     '''
-    with requests.get(f"{BASE_URL}/searchlogs/querySummoner", params={"sn":player_name}) as resp:
+    session = requests.Session()
+    session.trust_env = False
+    with session.get(f"{BASE_URL}/searchlogs/querySummoner", params={"sn":player_name}) as resp:
         if resp.status_code != 200:
             print(f"query return code with {resp.status_code}")
             raise Exception(f"query return code with {resp.status_code}")
@@ -18,9 +20,10 @@ def get_player_id(player_name:str)->int:
 
 def get_player_matches(player_id:str, page_count:int=2)->list:
     data_list = []
-    
+    session = requests.Session()
+    session.trust_env = False
     for i in range(1, page_count+1):
-        with requests.post(f"{BASE_URL}/Ajax/recentgames/{player_id}/page:{i}/sort:GameMatch.createDate/direction:desc") as resp:
+        with session.post(f"{BASE_URL}/Ajax/recentgames/{player_id}/page:{i}/sort:GameMatch.createDate/direction:desc") as resp:
             res = BeautifulSoup(resp.text, features="html.parser")
             pdata = res.find_all('tr', ["game-win", "game-lose", "game-leave", "info", "danger"])
             if pdata is None:
