@@ -2,11 +2,8 @@ LoL-helper-linebot/
 |-- src/
 |   |-- analysis/
 |   |   |-- database/
-|   |   |   |-- analysis_data.csv
-|   |   |   |-- game.csv
 |   |   |   |-- mode.csv
-|   |   |   |-- original_source.csv
-|   |   |   |-- status.csv
+|   |   |   |-- champion.csv
 |   |   |
 |   |   |-- get_data/
 |   |   |   |-- craweler/
@@ -42,12 +39,13 @@ LoL-helper-linebot/
 |   |-- __init__.py
 |   |-- app.py
 |   |-- local_test.sh
-|   |-- Procfile
 |
 |-- docs/
 |   |-- analysis_method.pdf
 |   |-- conf.py
 |
+|-- Procfile
+|-- runtime.txt
 |-- .gitignore
 |-- requirements.txt
 |-- README.md
