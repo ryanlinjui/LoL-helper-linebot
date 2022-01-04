@@ -105,7 +105,6 @@ def login(line_user_id:str,lol_player_id:str)->bool:
             #不存在此lol玩家
             logging.info(f"[{line_user_id}]: {lol_player_id} is not exist")
             return False
-    print("here")
     if not(lol_player_id in analysis_data_db["player"].values):
         analysis(lol_player_id)
         logging.info(f"[{line_user_id}]: Append analysing data of {lol_player_id}")
