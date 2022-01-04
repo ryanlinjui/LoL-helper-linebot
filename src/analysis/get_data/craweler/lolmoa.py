@@ -11,7 +11,6 @@ def get_player_id(player_name:str)->int:
     '''
     with requests.get(f"{BASE_URL}/searchlogs/querySummoner", params={"sn":player_name}) as resp:
         if resp.status_code != 200:
-            print(f"query return code with {resp.status_code}")
             raise Exception(f"query return code with {resp.status_code}")
         res = BeautifulSoup(resp.text, features="html.parser")
         return str(res.find_all('a', href='#tabs-recentgames')[0]["data-url"]).split("/")[3]
