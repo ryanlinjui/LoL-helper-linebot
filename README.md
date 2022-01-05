@@ -13,8 +13,13 @@
 資料分析決策者：
 臺師大休旅所碩班 陳宥廷
 
-
 ## 主要功能
 - 查看LoL玩家的數據指標
 - 以台服數據分析
 - LineBot呈現輕量化好攜帶，好讓你隨時知道雷包的存在
+
+## how to use
+* scan here to add bot to your friend
+
+  ![](https://github.com/rrr20020910/LoL-helper-linebot/blob/main/execise-bot.jpg?raw=true)
+* or via url: [https://line.me/R/ti/p/%40631tusar](https://line.me/R/ti/p/%40631tusar)
