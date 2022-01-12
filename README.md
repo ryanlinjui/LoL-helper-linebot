@@ -10,8 +10,9 @@
 
 - 資料分析決策者：臺師大休旅所碩班 陳宥廷
 
-[專題簡報](https://github.com/rrr20020910/LoL-helper-linebot/blob/main/docs/image/qrcode.jpg)
-專題介紹影片
+[專題簡報](https://github.com/rrr20020910/LoL-helper-linebot/blob/main/docs/report.pdf)
+
+[專題介紹影片](https://youtu.be/nbrsOrpQUOs)
 
 ## 使用方法
 * [點選此連結加入Line好友](https://line.me/R/ti/p/%40631tusar)
