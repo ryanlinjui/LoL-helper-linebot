@@ -15,3 +15,11 @@ analysis_data.csv
 game.csv
 status.csv
 original_source.csv
+
+# material
+clip
+*.pptx
+
+# video
+*.mp4
+*.MP4
