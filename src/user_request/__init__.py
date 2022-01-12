@@ -63,7 +63,7 @@ def user_postback_request(event:PostbackEvent):
     user_id = event.source.user_id
     logging.info(f"receive postback message:{event}")
     if not(is_login(user_id)):
-        send_msg(user_id,"歡迎來到LoL雷包分析系統，請輸入玩家名分析\n(你不要想搞事ㄟ，請好好善待這個系統)")
+        send_msg(user_id,"歡迎來到LoL線上分析系統，請輸入玩家名分析\n(你不要想搞事ㄟ，請好好善待這個系統)")
         return
     mode = event.postback.data
 
@@ -113,6 +113,6 @@ def user_postback_request(event:PostbackEvent):
         os.remove(dst_fname)
         print_menu(user_id)
     elif mode == 'logout':
-        send_msg(user_id,"切換使用者\n歡迎來到LoL雷包分析系統，請輸入玩家名分析")
+        send_msg(user_id,"切換使用者\n歡迎來到LoL線上分析系統，請輸入玩家名分析")
         logout(user_id)
         logging.info(f"[{user_id}]: Logout")

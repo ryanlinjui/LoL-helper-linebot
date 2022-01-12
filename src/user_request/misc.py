@@ -10,11 +10,11 @@ def print_menu(line_id:str):
     line_bot_api.push_message(
         line_id,
         TemplateSendMessage(
-            alt_text="歡迎來到LoL雷包分析系統",
+            alt_text="歡迎來到LoL線上分析系統",
             template=ButtonsTemplate(
                 type="buttons",
                 thumbnail_image_url="https://i.imgur.com/zFeydUT.jpg",
-                title="歡迎來到LoL雷包分析系統",
+                title="歡迎來到LoL線上分析系統",
                 text="請選擇分析項目",
                 actions=[
                     PostbackAction(
