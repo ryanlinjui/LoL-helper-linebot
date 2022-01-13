@@ -10,6 +10,8 @@
 
 - 資料分析決策者：臺師大休旅所碩班 陳宥廷
 
+[DEMOX專題競賽平台](https://demox.tw/idea/detail/?id=478)
+
 [專題簡報](https://github.com/rrr20020910/LoL-helper-linebot/blob/main/docs/report.pdf)
 
 [專題介紹影片](https://youtu.be/nbrsOrpQUOs)
