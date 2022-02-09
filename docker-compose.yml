@@ -2,11 +2,11 @@ version: '3'
 
 services:
   web:
-    build: ./src
+    build: .
     env_file:
-      - src/.env
+      - .env
     volumes:
-      - ./src:/app
+      - .:/app
     ports:
       - 48763:8000
     command: gunicorn --bind 0.0.0.0:8000 app:app
