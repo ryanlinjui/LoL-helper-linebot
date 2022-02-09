@@ -3,6 +3,7 @@
 
 # python
 __pycache__
+*.pyc
 
 # local testing enviroment variables
 .env
@@ -16,10 +17,6 @@ game.csv
 status.csv
 original_source.csv
 
-# material
-clip
-*.pptx
-
-# video
-*.mp4
-*.MP4
+# assets
+videos
+pptx
