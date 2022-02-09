@@ -1,0 +1,39 @@
+from linebot.models import (
+    TemplateSendMessage,
+    PostbackAction,
+    ButtonsTemplate
+)
+from utils import (
+    line_bot_api
+) 
+def print_menu(line_id:str):
+    line_bot_api.push_message(
+        line_id,
+        TemplateSendMessage(
+            alt_text="歡迎來到LoL線上分析系統",
+            template=ButtonsTemplate(
+                type="buttons",
+                thumbnail_image_url="https://i.imgur.com/zFeydUT.jpg",
+                title="歡迎來到LoL線上分析系統",
+                text="請選擇分析項目",
+                actions=[
+                    PostbackAction(
+                        label="一般對戰",
+                        data="blindpick"
+                    ),
+                    PostbackAction(
+                        label="積分對戰",
+                        data="rank"
+                    ),
+                    PostbackAction(
+                        label="隨機單中",
+                        data="aram"
+                    ),
+                    PostbackAction(
+                        label="切換召喚師",
+                        data="logout"
+                    )
+                ]
+            )
+        )
+    )
