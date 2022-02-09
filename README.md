@@ -20,5 +20,4 @@
 * [點選此連結加入Line好友](https://line.me/R/ti/p/%40631tusar)
 * 或是用手機掃描QRcode
 
-  ![QRcode](https://github.com/rrr20020910/LoL-helper-linebot/blob/main/docs/image/qrcode.jpg?raw=true)
-
+![QRcode](https://github.com/rrr20020910/LoL-helper-linebot/blob/main/assets/images/qrcode.jpg?raw=true)
