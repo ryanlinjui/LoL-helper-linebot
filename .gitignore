@@ -1,3 +1,6 @@
+# vscode
+.vscode
+
 # mac
 .DS_Store
 
@@ -17,6 +20,9 @@ game.csv
 status.csv
 original_source.csv
 
-# assets
-videos
-pptx
+# video file
+*.mp4
+
+# powerpoint
+*.pptx
+*.ppt
