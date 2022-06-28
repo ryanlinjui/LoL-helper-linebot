@@ -1,0 +1,14 @@
+# mac
+.DS_Store
+
+# vscode setting file
+.vscode
+
+# document directory
+docs
+
+# git directory
+.git
+
+# git ignore file
+.gitignore
