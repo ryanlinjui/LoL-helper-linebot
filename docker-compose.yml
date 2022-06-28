@@ -2,6 +2,8 @@ version: '3'
 
 services:
   web:
+    container_name: lol-helper-linebot-env
+    image: lol-helper-linebot
     build: .
     env_file:
       - .env
