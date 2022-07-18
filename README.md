@@ -16,6 +16,8 @@
 
 [專題介紹影片](https://youtu.be/nbrsOrpQUOs)
 
+[得獎名單](http://www.aa.ntnu.edu.tw/files/archive/5706_8d785372.pdf)
+
 ## 使用方法
 * [點選此連結加入Line好友](https://line.me/R/ti/p/%40631tusar)
 * 或是用手機掃描QRcode
