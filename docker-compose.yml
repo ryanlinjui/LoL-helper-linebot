@@ -1,8 +1,8 @@
 version: '3'
 
 services:
-  web:
-    container_name: lol-helper-linebot-env
+  server:
+    container_name: lol-helper-linebot-server
     image: lol-helper-linebot
     build: .
     env_file:
@@ -12,3 +12,11 @@ services:
     ports:
       - 48763:8000
     command: gunicorn --bind 0.0.0.0:8000 app:app
+
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    command: tunnel --no-autoupdate --protocol http2 run --token ${CLOUDFLARE_TUNNEL_TOKEN}
+    restart: unless-stopped
+    depends_on:
+        - server
+    network_mode: host
