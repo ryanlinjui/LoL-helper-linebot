@@ -1,4 +1,5 @@
 Flask==2.1.0
+Werkzeug==2.1.1
 gunicorn==20.0.4
 line-bot-sdk==1.16.0
 imgurpython==1.1.7
